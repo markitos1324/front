@@ -53,8 +53,9 @@ export class HomeComponent implements OnInit {
   }
 
   public Add(){
-     const cliente = {userId: this.clientList[this.clientList.length-1].userId +1,
-     id:  this.clientList[this.clientList.length-1].id +1,
+    const light = this.clientList[this.clientList.length-1] != null;
+     const cliente = {userId: (light)?this.clientList[this.clientList.length-1].userId +1:1,
+     id:  (light)?this.clientList[this.clientList.length-1].id +1:1,
      title: this.title,
      completed: this.completed};
     this.homeServiceService.addClientes(cliente).then(()=>{
