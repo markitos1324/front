@@ -24,7 +24,7 @@
         <span class="input-group-text" id="basic-addon1">Completo</span>
         <input type="checkbox" [(ngModel)]="completed">
       <div class="d-grid gap-2">
-        <button class="btn btn-primary" type="button" (click)="Agregar()">Agregar</button>
+        <button class="btn btn-primary" type="button" (click)="Add()">Agregar</button>
       </div>
     </div>
     <div class="col" *ngIf="!loading">
@@ -32,19 +32,17 @@
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col" *ngFor="let user of encabezados; index as i;">{{user}}</th>
+            <th scope="col" *ngFor="let user of headers; index as i;">{{user}}</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let cliente of listaClientes; index as i;">
-            <th scope="row">{{i+1}}</th>
+          <tr *ngFor="let cliente of clientList; index as i;">
             <td>{{cliente.userId}}</td>
             <td>{{cliente.id}}</td>
             <td>{{cliente.title}}</td>
             <td>{{cliente.completed}}</td>
-            <button class="btn btn-primary" type="button" (click)="Borrar(cliente.id)">Borrar</button>
-            <button class="btn btn-primary" type="button" (click)="EditarDiv(cliente)">Editar</button>
+            <button class="btn btn-primary" type="button" (click)="delete(cliente.id)">Borrar</button>
+            <button class="btn btn-primary" type="button" (click)="EditDiv(cliente)">Editar</button>
           </tr>
         </tbody>
       </table>

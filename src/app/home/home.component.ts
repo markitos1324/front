@@ -9,9 +9,9 @@ import swal from 'sweetalert';
 })
 export class HomeComponent implements OnInit {
 
-  public listaClientes:{ userId: number, id: number, title: string, completed: boolean }[];
+  public clientList:{ userId: number, id: number, title: string, completed: boolean }[];
   public ephemeralClient: { userId: number, id: number, title: string, completed: boolean };
-  public encabezados:string[];
+  public headers:string[];
   public loading:boolean;
   public hasError:boolean;
   public error:string;
@@ -22,11 +22,11 @@ export class HomeComponent implements OnInit {
   public completed:boolean;
 
   constructor(private homeServiceService: HomeServiceService) { 
-    this.encabezados = this.getHeaders();
+    this.headers = this.getHeaders();
     this.loading = true;
     this.hasError = false;
     this.error = "";
-    this.listaClientes = [];
+    this.clientList = [];
     this.editDiv = false;
     this.title="";
     this.completed=false;
@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
   public getCliente(){
     this.loading = true;
     this.homeServiceService.getClientes().then((data)=>{
-      this.listaClientes=data;      
+      this.clientList=data;      
       this.hasError = false;
     }).catch((error)=>{
       console.log(error);
@@ -52,9 +52,9 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  public Agregar(){
-     const cliente = {userId: this.listaClientes[this.listaClientes.length-1].userId +1,
-     id:  this.listaClientes[this.listaClientes.length-1].id +1,
+  public Add(){
+     const cliente = {userId: this.clientList[this.clientList.length-1].userId +1,
+     id:  this.clientList[this.clientList.length-1].id +1,
      title: this.title,
      completed: this.completed};
     this.homeServiceService.addClientes(cliente).then(()=>{
@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-   public Borrar(id:number){
+   public delete(id:number){
     this.homeServiceService.deleteClientes(id).then(()=>{
       this.getCliente();
       swal("Borrado Exitoso!", "You clicked the button!", "success");
@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit {
     
   }
 
-  public EditarDiv(cliente:{userId: number, id: number, title: string, completed: boolean }){
+  public EditDiv(cliente:{userId: number, id: number, title: string, completed: boolean }){
     (this.editDiv)?this.editDiv=false:this.editDiv=true;
     this.title = cliente.title;
     this.completed = cliente.completed;
@@ -108,7 +108,7 @@ export class HomeComponent implements OnInit {
   }
 
   private getHeaders():string[]{
-    const encabezados:string[] = [ "nombreCliente", "edad", "email"];
-    return encabezados;
+    const headers:string[] = [ "userId", "id", "titulo", "completado"];
+    return headers;
   }
 }
