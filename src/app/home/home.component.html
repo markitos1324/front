@@ -1,0 +1,68 @@
+<div class="container">
+  <h1>Prueba Angular con Node.js Express</h1>
+  <div class="row">
+    <div class="col" *ngIf="hasError">
+      <div class="row">
+        <p>Ha Ocurrido un error al: {{error}}</p>
+      </div>
+    </div>
+    <div class="col" *ngIf="loading">
+      <label for="cargando">Cargando...</label>
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden"></span>
+      </div>
+    </div>
+    <div class="col-12">
+      <h3>Crear Cliente</h3>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Titulo</span>
+        <input [(ngModel)]="title" type="text" class="form-control"
+          placeholder="Ingrese el titulo" aria-label="Ingrese el titulo"
+          aria-describedby="basic-addon1">
+      </div>
+      <div>
+        <span class="input-group-text" id="basic-addon1">Completo</span>
+        <input type="checkbox" [(ngModel)]="completed">
+      <div class="d-grid gap-2">
+        <button class="btn btn-primary" type="button" (click)="Agregar()">Agregar</button>
+      </div>
+    </div>
+    <div class="col" *ngIf="!loading">
+      <h3>Tabla Clientes</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" *ngFor="let user of encabezados; index as i;">{{user}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cliente of listaClientes; index as i;">
+            <th scope="row">{{i+1}}</th>
+            <td>{{cliente.userId}}</td>
+            <td>{{cliente.id}}</td>
+            <td>{{cliente.title}}</td>
+            <td>{{cliente.completed}}</td>
+            <button class="btn btn-primary" type="button" (click)="Borrar(cliente.id)">Borrar</button>
+            <button class="btn btn-primary" type="button" (click)="EditarDiv(cliente)">Editar</button>
+          </tr>
+        </tbody>
+      </table>
+      <div class="col-12" *ngIf="editDiv">
+        <h3>Editar Cliente</h3>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Titulo</span>
+          <input [(ngModel)]="title" type="text" class="form-control"
+            placeholder="Ingrese el titulo" aria-label="Ingrese el titulo"
+            aria-describedby="basic-addon1">
+        </div>
+        <div>
+          <span class="input-group-text" id="basic-addon1">Completo</span>
+          <input type="checkbox" [(ngModel)]="completed">
+        <div class="d-grid gap-2">
+          <button class="btn btn-primary" type="button" (click)="Edit()">Editar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
